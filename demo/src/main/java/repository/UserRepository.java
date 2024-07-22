@@ -1,25 +1,47 @@
 package repository;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import model.User;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class UserRepository {
-    FileInputStream fis;
-    private BufferedReader br;
 
-    public UserRepository() throws FileNotFoundException {
-        fis = new FileInputStream("demo\\src\\main\\resources\\user.csv");
-        br = new BufferedReader(new InputStreamReader(fis));
+    private final static String PATH = "src/main/resources/user.csv";
+
+    private BufferedReader connect() throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(PATH);
+        return new BufferedReader(new InputStreamReader(fis));
     }
 
-    public int menu() throws IOException {
-        return Integer.parseInt(br.readLine());
+    public List<User> findAll() throws IOException {
+        List<User> users = new ArrayList<>();
+
+        // 데이터 읽기
+        BufferedReader br = connect();
+        String colName = br.readLine(); // 데이터 버림
+        for (String line = br.readLine(); line != null; line = br.readLine()) {
+            User user = User.of(line);
+            users.add(user);
+        }
+        br.close();
+
+        return users;
     }
 
-    public String Info() throws IOException {
-        return br.readLine();
+    public Optional<User> findById(int id) throws IOException {
+        BufferedReader br = connect();
+        String colName = br.readLine();  // 데이터 버림
+        for (String line = br.readLine(); line != null; line = br.readLine()) {
+            User user  = User.of(line);
+            if (user .getId() != id) {
+                continue;
+            }
+            br.close();
+            return Optional.of(user );
+        }
+        return Optional.empty();
     }
 }
