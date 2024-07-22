@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import model.Book;
 import model.User;
+import service.BookService;
 import service.UserService;
+import view.BookView;
 import view.ConsoleView;
 import view.UserView;
 
@@ -15,19 +18,24 @@ public class MainController {
     public static void main(String[] args) throws NumberFormatException, IOException {
         ConsoleView ConsoleView = new ConsoleView();
         UserView UserView = new UserView();
-        UserService UserService = new UserService();
+        BookView bookview = new BookView();
+        UserService userService = new UserService();
+        BookService bookService = new BookService();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
             ConsoleView.menu();
             switch (menu()) {
                 case 1: {
-                    List<User> userList = UserService.list();
-                    UserView.infoPrint(userList);
+                    List<User> user = userService.list();
+                    UserView.infoPrint(user);
                     br.readLine();
                     break;
                 }
                 case 2: {
+                    List<Book> books = bookService.list();
+                    bookview.infoPrint(books);
+                    br.readLine();
                     break;
                 }
                 case 3: {

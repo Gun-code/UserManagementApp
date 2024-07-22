@@ -5,20 +5,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.User;
+import repository.UserRepository;
 
 public class UserService {
+    private UserRepository userRepository;
+    private List<User> member;
 
     public List<User> list() throws IOException {
-        UserRepository userRepository = new UserRepository();
-        List<User> member = new ArrayList<>();
-        String userLine;
-        while ((userLine = userRepository.userInfo()) != null) {
+        userRepository = new UserRepository();
+        member = new ArrayList<>();
+        String line;
+        while ((line = userRepository.Info()) != null) {
 
-            String[] info = userLine.split(",");
+            String[] info = line.split(",");
 
-            member.add(new User(Integer.parseInt(info[0]), info[1], info[2], info[3], info[4], info[5], info[6]));
+            member.add(
+                    new User(Integer.parseInt(info[0]), info[1], info[2], info[3], info[4], info[5], info[6], info[7]));
         }
         return member;
+    }
+
+    public String findRegiUser(int _userKey) throws IOException {
+        if (member == null)
+            list();
+        User temp = new User();
+        temp = member.get(_userKey - 1);
+        return temp.getUserName();
     }
 
 }

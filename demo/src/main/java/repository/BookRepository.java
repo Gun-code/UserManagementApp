@@ -1,4 +1,4 @@
-package service;
+package repository;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -6,12 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class UserRepository {
-
+public class BookRepository {
+    FileInputStream fis;
     private BufferedReader br;
 
-    public UserRepository() throws FileNotFoundException {
-        FileInputStream fis = new FileInputStream("demo\\src\\main\\resources\\user.csv");
+    public BookRepository() throws FileNotFoundException {
+        fis = new FileInputStream("demo\\src\\main\\resources\\book.csv");
         br = new BufferedReader(new InputStreamReader(fis));
     }
 
@@ -19,7 +19,7 @@ public class UserRepository {
         return Integer.parseInt(br.readLine());
     }
 
-    public String userInfo() throws IOException {
+    public String Info() throws IOException {
         return br.readLine();
     }
 }

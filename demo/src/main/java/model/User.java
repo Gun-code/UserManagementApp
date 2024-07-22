@@ -1,5 +1,9 @@
 package model;
 
+import java.io.IOException;
+
+import service.BookService;
+
 public class User {
 
     private int id;
@@ -9,13 +13,17 @@ public class User {
     private String imageUrl;
     private String createTime;
     private String updateTime;
+    private StringBuilder userRegiBooks;
+    private BookService bookService;
 
-    public User() {
-        this(0, "", "", "", "", "", "");
+    public User() throws IOException {
+        this(0, "", "", "", "", "", "", "");
     }
 
     public User(int id, String password, String userName, String email, String imageUrl, String createTime,
-            String updateTime) {
+            String updateTime, String userBooks) throws IOException {
+        bookService = new BookService();
+        userRegiBooks = new StringBuilder();
         this.id = id;
         this.password = password;
         this.userName = userName;
@@ -23,6 +31,16 @@ public class User {
         this.imageUrl = imageUrl;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        findUserBooks(userBooks);
+    }
+
+    private void findUserBooks(String _userBooks) throws IOException {
+
+        for (String bookId : _userBooks.split("/")) {
+            int bookKey = Integer.parseInt(bookId);
+            userRegiBooks.append(bookService.userRegBooks(bookKey)).append(" / ");
+        }
+
     }
 
     public void setId(int id) {
@@ -80,4 +98,9 @@ public class User {
     public String getUpdateTime() {
         return this.updateTime;
     }
+
+    public String getRegiBooks() {
+        return userRegiBooks.toString();
+    }
+
 }
