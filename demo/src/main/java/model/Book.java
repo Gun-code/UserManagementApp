@@ -16,7 +16,17 @@ public class Book {
     private int userCount = 0;
 
     public Book() throws NumberFormatException, IOException {
-        this(0, "", "", "", "", "", "");
+        this(0, "", "", "", "", "");
+    }
+
+    public Book(int id, String isbn, String title, String author, String publisher, String category)
+            throws NumberFormatException, IOException {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.category = category;
     }
 
     public Book(int id, String isbn, String title, String author, String publisher, String category, String userID)
@@ -33,6 +43,7 @@ public class Book {
     }
 
     private void userInfo(String user) throws NumberFormatException, IOException {
+
         for (String userId : user.split("/")) {
             int _userKey = Integer.parseInt(userId);
             userKey.append(userService.findRegiUser(_userKey)).append(" / ");

@@ -17,7 +17,18 @@ public class User {
     private BookService bookService;
 
     public User() throws IOException {
-        this(0, "", "", "", "", "", "", "");
+        this(0, "", "", "", "", "", "");
+    }
+
+    public User(int id, String password, String userName, String email, String imageUrl, String createTime,
+            String updateTime) throws NumberFormatException, IOException {
+        this.id = id;
+        this.password = password;
+        this.userName = userName;
+        this.email = email;
+        this.imageUrl = imageUrl;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public User(int id, String password, String userName, String email, String imageUrl, String createTime,
@@ -38,6 +49,7 @@ public class User {
 
         for (String bookId : _userBooks.split("/")) {
             int bookKey = Integer.parseInt(bookId);
+            System.out.println(bookKey);
             userRegiBooks.append(bookService.userRegBooks(bookKey)).append(" / ");
         }
 
