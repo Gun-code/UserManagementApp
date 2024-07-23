@@ -27,7 +27,7 @@ public class UserView {
 
                     """, user.getId(), user.getPassword(), user.getUserName(),
                     user.getEmail(), user.getImageUrl(), user.getCreateTime(), user.getUpdateTime(),
-                    user.getRegiBooks());
+                    user.getRegBooks());
             ++index;
         }
         System.out.println("메뉴료 돌아가기 (아무키나 입력해주세요.)");

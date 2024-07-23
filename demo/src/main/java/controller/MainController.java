@@ -27,7 +27,7 @@ public class MainController {
             ConsoleView.menu();
             switch (menu()) {
                 case 1: {
-                    List<User> user = userService.list();
+                    List<User> user = userService.users();
                     UserView.infoPrint(user);
                     br.readLine();
                     break;
